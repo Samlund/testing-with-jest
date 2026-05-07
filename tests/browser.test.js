@@ -25,6 +25,18 @@ test('The stack should be empty in the beginning', async () => {
     expect(stack).toEqual("n/a");
 });
 
+describe('Clicking "Poppa stacken! on empty stack', () => {
+    it('should open a prompt box with text "Kan inte poppa tom stack"', async () => {
+        let pop = await driver.findElement(By.id('pop'));
+        await pop.click();
+        let alert = await driver.switchTo().alert();
+        const text = await alert.getText();
+        console.log(text)
+        await alert.accept();
+        expect(text).toBe("Kan inte poppa tom stack");
+    });
+});
+
 describe('Clicking "Pusha till stacken"', () => {
     it('should open a prompt box', async () => {
         let push = await driver.findElement(By.id('push'));
@@ -32,5 +44,16 @@ describe('Clicking "Pusha till stacken"', () => {
         let alert = await driver.switchTo().alert();
         await alert.sendKeys("Bananer");
         await alert.accept();
+    });
+});
+
+describe('Clicking "Poppa stacken!', () => {
+    it('should open a prompt box with text starting with "Tog bort"', async () => {
+        let pop = await driver.findElement(By.id('pop'));
+        await pop.click();
+        let alert = await driver.switchTo().alert();
+        const text = await alert.getText();
+        await alert.accept();
+        expect(text.slice(0, 8)).toBe("Tog bort");
     });
 });

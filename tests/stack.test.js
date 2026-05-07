@@ -1,5 +1,9 @@
 const stack = require('../src/stack');
 
+test('pop on empty stack should throw', () => {
+    expect(() => stack.pop()).toThrow();
+});
+
 test('peek on empty stack returns undefined', () => {
     expect(stack.peek()).toBeUndefined();
 });
